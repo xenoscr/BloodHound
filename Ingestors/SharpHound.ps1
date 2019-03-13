@@ -500,5 +500,10 @@ function Invoke-BloodHound{
 	$BindingFlags = [Reflection.BindingFlags] "Public,Static"
 	$a = @()
 	$Assembly.GetType("Costura.AssemblyLoader", $false).GetMethod("Attach", $BindingFlags).Invoke($Null, @())
-	$Assembly.GetType("Sharphound2.Sharphound").GetMethod("InvokeBloodHound").Invoke($Null, @(,$passed))
+	try {
+		$Assembly.GetType("Sharphound2.Sharphound").GetMethod("InvokeBloodHound").Invoke($Null, @(,$passed))
+	}
+	catch {
+		Write-Host $passed
+	}
 }
